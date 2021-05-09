@@ -73,7 +73,6 @@ final <- final %>%
 final <- final %>%
   mutate(HateCrimesPerCapita = YearlyReportedHateCrimes/PopulationCoveredByHateCrimeStatistics)
 
-
 #Using Mutate to Create a categorical variable for States relation to the Mean Hate Crime Rate
 final <- final %>%
   mutate(Hateful = case_when(HateCrimesPerCapita > mean(HateCrimesPerCapita) ~ 'Above',
@@ -113,8 +112,8 @@ HateCrimeStats <- final %>%
             Mean = mean(YearlyReportedHateCrimes),
             SD = sd(YearlyReportedHateCrimes),
             Variance = var(YearlyReportedHateCrimes)
-            
-            )
+             )
+
 #Creating Table for All Numeric Statistics to Be Displayed In
 allStats <- HateCrimeStats
 
@@ -151,8 +150,6 @@ HateCrimeCapitaStats <- final %>%
             SD = sd(HateCrimesPerCapita),
             Variance = var(HateCrimesPerCapita))
 
-            
-
 #Using full join to add the population statistics to the growing table of all numeric statstics
 allStats <- allStats %>%
   full_join(HateCrimeCapitaStats)
@@ -174,7 +171,6 @@ allStats <- allStats %>%
                 Mean = mean(HateCrimesPerCapita),
                 SD = sd(HateCrimesPerCapita),
                 Variance = var(HateCrimesPerCapita)
-            
             ))
 ```
 
@@ -216,7 +212,6 @@ allStats <- allStats %>%
                 Mean = mean(PopulationCoveredByHateCrimeStatistics),
                 SD = sd(PopulationCoveredByHateCrimeStatistics),
                 Variance = var(PopulationCoveredByHateCrimeStatistics)
-            
             ))
 ```
 
@@ -258,7 +253,6 @@ allStats <- allStats %>%
                 Mean = mean(AgenciesReportingHateCrimes),
                 SD = sd(AgenciesReportingHateCrimes),
                 Variance = var(AgenciesReportingHateCrimes)
-            
             ))
 ```
 
@@ -275,7 +269,6 @@ OverdoseRateStats <- final %>%
             SD = sd(OverdoseDeathRate),
             Variance = var(OverdoseDeathRate))
             
-
 #Using full join to add the overdose rate statistics to the growing table of all numeric statstics
 allStats <- allStats %>%
   full_join(OverdoseRateStats)
@@ -296,7 +289,6 @@ allStats <- allStats %>%
                 Mean = mean(OverdoseDeathRate),
                 SD = sd(OverdoseDeathRate),
                 Variance = var(OverdoseDeathRate)
-            
             ))
 ```
 
@@ -334,7 +326,6 @@ allStats <- allStats %>%
                 Mean = mean(TotalOverdoseDeaths),
                 SD = sd(TotalOverdoseDeaths),
                 Variance = var(TotalOverdoseDeaths)
-            
             ))
 ```
 
@@ -373,7 +364,6 @@ allStats <- allStats %>%
                 Mean = mean(EstimatedMonthlyAdultIlicitDrugUse),
                 SD = sd(EstimatedMonthlyAdultIlicitDrugUse),
                 Variance = var(EstimatedMonthlyAdultIlicitDrugUse)
-            
             ))
 ```
 
@@ -606,5 +596,6 @@ autoplot(finalPCA, data = final, colour = 'Hateful', size='PC3', loadings = TRUE
 ![](P1HateCrimesAndDrugAbuse_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
 
 ``` r
+#Writes the final dataset to a new file to be used for follow up projects
 write.csv(final,"C:\\Users\\Jared\\Desktop\\Homework\\Comp Bio + Biostats\\Project2Data.csv", row.names = TRUE)
 ```
