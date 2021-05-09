@@ -93,6 +93,7 @@ ggpairs(Project2Data %>%
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
 <img src="Project2-ModelingMarkdown_files/figure-gfm/unnamed-chunk-3-1.png" width="200%" height="200%" />
+
 Many of these correlation coefficients are easiliy explained. The high
 correlation between HateCrimeAgencies and HateCrimeTotal, for example,
 is readily apparent in that the more agencies reporting hate crimes, the
@@ -219,6 +220,7 @@ for(i in 1:N){
   Ttest1 <- t.test(populationValues ~ newGroup)
   statistics[i] <- Ttest1$statistic
 }
+
 #Creating a histogram of the test statistics from random samples
 hist(statistics, col = 'green',
      main = 'Randomized Test Statistic',
@@ -247,6 +249,7 @@ hypothesis cannot be rejected.
 Project2DataCentered <- Project2Data %>%
   mutate_at(2:6, function(x)x-mean(x))%>%
   mutate(Y = ifelse(Hateful == 'Above', 1, 0))
+
 #Creating a linear regression model that accounts for the variables OverdoseDeathRate, HateCrimePop, HateCrimeAgencies, and their interactions, as compared to their hate crimes per capita.
 fit1 <- lm(HateCrimesPerCapita ~ OverdoseDeathRate * HateCrimePop * HateCrimeAgencies , data = Project2DataCentered)
 summary(fit1)
@@ -399,8 +402,8 @@ booted
     ## # A tibble: 2 x 5
     ##   Hateful MeanOverdose    se  MeanPop MeanAgencies
     ##   <chr>          <dbl> <dbl>    <dbl>        <dbl>
-    ## 1 Above          -1.84 14.4   909521.         25.1
-    ## 2 Below           1.23  5.55 -606347.        -16.7
+    ## 1 Above          -1.84 14.3   909521.         25.1
+    ## 2 Below           1.23  5.56 -606347.        -16.7
 
 ``` r
 summary(fit1, robust = T)
@@ -551,6 +554,7 @@ performance <- data.frame(
   predicted = ifelse(Project2DataCentered$Prediction > 0.5, 1, 0),
   truth = Project2DataCentered$Y
 )
+
 #Generating the ROC plot
 ROCplot <- ggplot(performance) + geom_roc(aes(d = truth, m = probs), n.cuts = 0)
 ROCplot
